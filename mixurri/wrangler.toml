@@ -1,0 +1,22 @@
+compatibility_date = "2022-08-12"
+account_id = "590d5e6a4382a813b506fa45ca1609e0"
+
+[build]
+command = "npm install && npm run build"
+
+[env.dev]
+name = "dev-mixurri"
+workers_dev = true
+
+kv_namespaces = [{ binding = "MIXURRI", id = "a9535a8282c1446dad575ab757d6ec77" }]
+
+[env.dev.vars]
+APPLICATION_ID = "897276795349499904"
+PUBLIC_KEY = "03ceb2e8ab9cde3a8b158e9cee996fb3eb89b76a3d56e45560be84be3516b783"
+
+[env.prod]
+name = "mixurri"
+workers_dev = false
+route = ""
+
+kv_namespaces = [{ binding = "MIXURRI", id = "" }]

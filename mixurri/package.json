@@ -1,0 +1,45 @@
+{
+  "name": "mixurri",
+  "version": "0.0.1",
+  "description": "A Discord bot capable of organizing 5v5 matches.",
+  "main": "dist/worker.js",
+  "scripts": {
+    "build": "webpack",
+    "format": "prettier --write  '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
+    "lint": "eslint --max-warnings=0 src && prettier --check '*.{json,js}' 'src/**/*.{js,ts}' 'test/**/*.{js,ts}'",
+    "test": "jest --config jestconfig.json --verbose"
+  },
+  "author": "alvgaona@gmail.com",
+  "license": "MIT OR Apache-2.0",
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "typescript",
+      "prettier"
+    ]
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^2.2.2",
+    "@types/lodash": "^4.14.172",
+    "@types/node": "^16.7.10",
+    "@typescript-eslint/eslint-plugin": "^4.16.1",
+    "@typescript-eslint/parser": "^4.16.1",
+    "eslint": "^7.21.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-typescript": "^3.0.0",
+    "prettier": "^2.3.0",
+    "ts-loader": "^9.2.2",
+    "typescript": "^4.3.2",
+    "webpack": "^5.38.1",
+    "webpack-cli": "^4.7.0"
+  },
+  "dependencies": {
+    "array-shuffle": "^3.0.0",
+    "buffer": "^6.0.3",
+    "cloudflare-discord-bot": "file:../cloudflare-discord-bot",
+    "discord-api-types": "^0.37.2",
+    "itty-router": "^2.4.2",
+    "lodash": "^4.17.21",
+    "tweetnacl": "^1.0.3"
+  }
+}

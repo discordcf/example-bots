@@ -1,0 +1,45 @@
+name: deploy-production
+on:
+  workflow_dispatch
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GOOGLE_PROJECT_ID }}
+          service_account_key: ${{ secrets.GOOGLE_SA_PACKER_KEY }}
+          export_default_credentials: true
+
+      - name: Update apt
+        run: sudo apt-get update
+
+      - name: Install Wrangler
+        run: npm i @cloudflare/wrangler -g
+      
+      - name: Generate wrangler.toml
+        run: >- 
+        cat <<EOF
+type = "javascript"
+account_id = "${{ secrets.ACCOUNT_ID }}"
+zone_id = "${{ secrets.ZONE_ID }}"
+
+[build]
+command = "npm install && npm run build"
+
+[build.upload]
+format = "service-worker"
+
+[env.prod]
+name = "mixurri"
+workers_dev = false
+route = "${{ secrets.ROUTE }}"
+
+kv_namespaces = [{ binding = "MIXURRI", id = "${{ secrets.PRODUCTION_KV }}", preview_id = "69j12kh04" }] >> wrangler.toml
+
+      - name: Publish worker
+        run: wrangler publish --env prod
